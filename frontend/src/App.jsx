@@ -77,6 +77,7 @@ export default function App() {
   const [status, setStatus] = useState(null);
   const [loadingDemoId, setLoadingDemoId] = useState(null);
   const [demoAvailability, setDemoAvailability] = useState({});
+  const [previewAsset, setPreviewAsset] = useState(null);
   const sampleAssetsRef = useRef(null);
   const feedbackRef = useRef(null);
 
@@ -296,8 +297,8 @@ export default function App() {
                 CHOOSE YOUR ANALYSIS PATH
               </div>
               <p style={{ margin: "8px 0 0", fontSize: 12, lineHeight: 1.7, color: "var(--text-secondary)" }}>
-                Use our in-house pretrained forensic models or Gemini vision analysis. In some cases, our
-                in-house models outperform Gemini on artifact-driven deepfake detection, especially when you
+                Use Our own model or Gemini vision analysis. In some cases, Our own model outperforms Gemini on
+                artifact-driven deepfake detection, especially when you
                 need exact manipulated segments from video.
               </p>
             </div>
@@ -395,6 +396,7 @@ export default function App() {
             loadingDemoId={loadingDemoId}
             availability={demoAvailability}
             onSelect={handleDemoSelect}
+            onPreview={setPreviewAsset}
             localAvailable={localAvailable}
           />
         </div>
@@ -402,6 +404,7 @@ export default function App() {
         <CapabilityStrip />
         <TimelinePitch />
       </main>
+      <AssetPreviewModal asset={previewAsset} onClose={() => setPreviewAsset(null)} />
     </div>
   );
 }
@@ -409,7 +412,7 @@ export default function App() {
 function HeroPanel({ localAvailable, geminiAvailable }) {
   const states = [
     {
-      label: "IN-HOUSE MODELS",
+      label: "OUR OWN MODEL",
       value: localAvailable ? "ONLINE" : "OFFLINE",
       color: localAvailable ? "var(--safe)" : "var(--warn)",
     },
@@ -472,8 +475,8 @@ function HeroPanel({ localAvailable, geminiAvailable }) {
 
           <p style={{ margin: 0, maxWidth: 700, fontSize: 13, lineHeight: 1.8, color: "var(--text-secondary)" }}>
             Built for real users who want a polished forensic workflow. Upload evidence or load sample assets,
-            run either our in-house pretrained models or Gemini, and work through a clean SaaS-style analysis flow.
-            The key differentiator is video localization: our in-house pipeline can show the specific spans where
+            run either Our own model or Gemini, and work through a clean SaaS-style analysis flow.
+            The key differentiator is video localization: Our own model pipeline can show the specific spans where
             manipulation appears.
           </p>
 
@@ -482,7 +485,7 @@ function HeroPanel({ localAvailable, geminiAvailable }) {
               "Image and video analysis",
               "One-click sample assets",
               "Temporal segment localization",
-              "Gemini plus in-house models",
+              "Gemini plus Our own model",
             ].map((item) => (
               <div
                 key={item}
@@ -550,7 +553,7 @@ function QuickStartPanel() {
     {
       icon: Layers3,
       title: "2. CHOOSE A MODEL",
-      desc: "Pick In-House for artifact-focused forensic analysis and video localization, or Gemini for fast multimodal review.",
+      desc: "Pick Our own model for artifact-focused forensic analysis and video localization, or Gemini for fast multimodal review.",
     },
     {
       icon: CheckCircle2,
@@ -618,7 +621,7 @@ function QuickStartPanel() {
 function ProviderPanel({ localAvailable, geminiAvailable }) {
   const cards = [
     {
-      title: "IN-HOUSE MODELS",
+      title: "OUR OWN MODEL",
       value: localAvailable ? "READY" : "NOT INSTALLED",
       color: localAvailable ? "var(--accent)" : "var(--warn)",
       desc: "Use this path when you want exact manipulated segments in video, temporal scoring, and the strongest product differentiation.",
@@ -642,11 +645,11 @@ function ProviderPanel({ localAvailable, geminiAvailable }) {
           lineHeight: 1,
         }}
       >
-        IN-HOUSE VS GEMINI
+        OUR OWN MODEL VS GEMINI
       </div>
       <p style={{ margin: 0, fontSize: 12, lineHeight: 1.7, color: "var(--text-secondary)" }}>
         Present this as a deliberate product choice, not a fallback. Gemini is strong for quick forensic
-        reasoning. Our in-house pretrained models are the core differentiator when you want artifact-focused
+        reasoning. Our own model is the core differentiator when you want artifact-focused
         detection and, in some cases, better performance on deepfake-specific cues.
       </p>
       <div style={{ display: "grid", gap: 10 }}>
@@ -672,7 +675,7 @@ function ProviderPanel({ localAvailable, geminiAvailable }) {
   );
 }
 
-function DemoLibrary({ loadingDemoId, availability, onSelect, localAvailable }) {
+function DemoLibrary({ loadingDemoId, availability, onSelect, onPreview, localAvailable }) {
   const availableCount = DEMO_MEDIA.filter((item) => availability[item.id]).length;
 
   return (
@@ -714,6 +717,7 @@ function DemoLibrary({ loadingDemoId, availability, onSelect, localAvailable }) 
             isAvailable={!!availability[item.id]}
             isLoading={loadingDemoId === item.id}
             onSelect={onSelect}
+            onPreview={onPreview}
             localAvailable={localAvailable}
           />
         ))}
@@ -722,9 +726,9 @@ function DemoLibrary({ loadingDemoId, availability, onSelect, localAvailable }) 
   );
 }
 
-function DemoCard({ item, isAvailable, isLoading, onSelect, localAvailable }) {
+function DemoCard({ item, isAvailable, isLoading, onSelect, onPreview, localAvailable }) {
   const isVideo = item.type === "video";
-  const bestMode = item.preferredProvider === "local" ? "In-House" : "Gemini";
+  const bestMode = item.preferredProvider === "local" ? "Our own model" : "Gemini";
   const canLoad = isAvailable && !isLoading && (!isVideo || item.validated === true);
   const timelineNote =
     isVideo && !localAvailable
@@ -741,7 +745,9 @@ function DemoCard({ item, isAvailable, isLoading, onSelect, localAvailable }) {
         background: "var(--bg-elevated)",
       }}
     >
-      <div
+      <button
+        type="button"
+        onClick={() => isAvailable && onPreview(item)}
         style={{
           height: 132,
           position: "relative",
@@ -751,6 +757,10 @@ function DemoCard({ item, isAvailable, isLoading, onSelect, localAvailable }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          width: "100%",
+          border: "none",
+          padding: 0,
+          cursor: isAvailable ? "pointer" : "not-allowed",
         }}
       >
         <div
@@ -782,7 +792,22 @@ function DemoCard({ item, isAvailable, isLoading, onSelect, localAvailable }) {
         >
           {isVideo ? "VIDEO SAMPLE" : "IMAGE SAMPLE"}
         </div>
-      </div>
+        <div
+          style={{
+            position: "absolute",
+            right: 10,
+            bottom: 10,
+            padding: "4px 8px",
+            fontSize: 9,
+            color: "var(--text-primary)",
+            letterSpacing: "0.08em",
+            border: "1px solid rgba(255,255,255,0.14)",
+            background: "rgba(7,12,20,0.72)",
+          }}
+        >
+          CLICK TO PREVIEW
+        </div>
+      </button>
 
       <div style={{ padding: "14px 14px 16px", display: "flex", flexDirection: "column", gap: 10 }}>
         <div>
@@ -795,41 +820,68 @@ function DemoCard({ item, isAvailable, isLoading, onSelect, localAvailable }) {
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           <Tag>{bestMode} recommended</Tag>
           <Tag muted={!isAvailable}>{timelineNote}</Tag>
+          {item.providerWarning ? <Tag danger>{item.providerWarning}</Tag> : null}
         </div>
 
-        <button
-          onClick={() => onSelect(item)}
-          disabled={!canLoad}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 10,
-            width: "100%",
-            padding: "10px 12px",
-            background: canLoad ? "rgba(34,211,238,0.12)" : "rgba(255,255,255,0.03)",
-            border: `1px solid ${canLoad ? "rgba(34,211,238,0.28)" : "var(--border-subtle)"}`,
-            color: canLoad ? "var(--accent)" : "var(--text-muted)",
-            cursor: canLoad ? "pointer" : "not-allowed",
-            fontSize: 11,
-            fontFamily: '"IBM Plex Mono", monospace',
-            letterSpacing: "0.08em",
-            textTransform: "uppercase",
-          }}
-        >
-          <span>
-            {isLoading
-              ? "LOADING SAMPLE..."
-              : !isAvailable
-                ? isVideo
-                  ? `ADD ${item.filename.toUpperCase()}`
-                  : "ASSET MISSING"
-                : isVideo && item.validated !== true
-                  ? "VALIDATED CLIP REQUIRED"
-                  : "LOAD SAMPLE"}
-          </span>
-          <ArrowRight size={14} />
-        </button>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+          <button
+            type="button"
+            onClick={() => isAvailable && onPreview(item)}
+            disabled={!isAvailable}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 8,
+              width: "100%",
+              padding: "10px 12px",
+              background: isAvailable ? "rgba(255,255,255,0.03)" : "rgba(255,255,255,0.02)",
+              border: `1px solid ${isAvailable ? "rgba(255,255,255,0.12)" : "var(--border-subtle)"}`,
+              color: isAvailable ? "var(--text-primary)" : "var(--text-muted)",
+              cursor: isAvailable ? "pointer" : "not-allowed",
+              fontSize: 11,
+              fontFamily: '"IBM Plex Mono", monospace',
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+            }}
+          >
+            {isVideo ? <PlayCircle size={14} /> : <ImageIcon size={14} />}
+            Preview
+          </button>
+          <button
+            onClick={() => onSelect(item)}
+            disabled={!canLoad}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 10,
+              width: "100%",
+              padding: "10px 12px",
+              background: canLoad ? "rgba(34,211,238,0.12)" : "rgba(255,255,255,0.03)",
+              border: `1px solid ${canLoad ? "rgba(34,211,238,0.28)" : "var(--border-subtle)"}`,
+              color: canLoad ? "var(--accent)" : "var(--text-muted)",
+              cursor: canLoad ? "pointer" : "not-allowed",
+              fontSize: 11,
+              fontFamily: '"IBM Plex Mono", monospace',
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+            }}
+          >
+            <span>
+              {isLoading
+                ? "LOADING SAMPLE..."
+                : !isAvailable
+                  ? isVideo
+                    ? `ADD ${item.filename.toUpperCase()}`
+                    : "ASSET MISSING"
+                  : isVideo && item.validated !== true
+                    ? "VALIDATED CLIP REQUIRED"
+                    : "LOAD SAMPLE"}
+            </span>
+            <ArrowRight size={14} />
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -839,15 +891,15 @@ function InstructionBand({ localAvailable, geminiAvailable, provider }) {
   const tips = [
     "Choose a sample asset or upload your own file, then click Analyze.",
     "For image-only onboarding, Gemini is the fastest path to a clean walkthrough.",
-    "For the strongest selling point: run a short video with In-House mode to show exact manipulated segments on the timeline.",
+    "For the strongest selling point: run a short video with Our own model to show exact manipulated segments on the timeline.",
   ];
 
   if (!localAvailable) {
-    tips[2] = "To show exact manipulated video segments, install the in-house model weights on the backend and use In-House mode.";
+    tips[2] = "To show exact manipulated video segments, install the model weights on the backend and use Our own model.";
   }
 
   if (!geminiAvailable) {
-    tips[1] = "Gemini is not configured on this deployment, so only the in-house path is available.";
+    tips[1] = "Gemini is not configured on this deployment, so only Our own model is available.";
   }
 
   return (
@@ -876,12 +928,12 @@ function CapabilityStrip() {
     {
       icon: Sparkles,
       title: "SELL THE DUAL MODE",
-      desc: "Offer both Gemini and in-house pretrained models as deliberate product choices, not hidden backend details.",
+      desc: "Offer both Gemini and Our own model as deliberate product choices, not hidden backend details.",
     },
     {
       icon: Clapperboard,
       title: "VIDEO IS THE HOOK",
-      desc: "When the in-house pipeline is active, the timeline pinpoints exactly where manipulation appears in the clip.",
+      desc: "When Our own model pipeline is active, the timeline pinpoints exactly where manipulation appears in the clip.",
     },
     {
       icon: Film,
@@ -1046,19 +1098,117 @@ function SectionEyebrow({ label }) {
   );
 }
 
-function Tag({ children, muted = false }) {
+function Tag({ children, muted = false, danger = false }) {
   return (
     <span
       style={{
         fontSize: 9,
         padding: "4px 7px",
-        border: "1px solid var(--border-subtle)",
-        color: muted ? "var(--text-muted)" : "var(--text-secondary)",
+        border: `1px solid ${danger ? "rgba(244,63,94,0.3)" : "var(--border-subtle)"}`,
+        color: danger ? "var(--danger)" : muted ? "var(--text-muted)" : "var(--text-secondary)",
+        background: danger ? "rgba(244,63,94,0.08)" : "transparent",
         letterSpacing: "0.06em",
         textTransform: "uppercase",
       }}
     >
       {children}
     </span>
+  );
+}
+
+function AssetPreviewModal({ asset, onClose }) {
+  if (!asset) return null;
+
+  const isVideo = asset.type === "video";
+
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: "fixed",
+        inset: 0,
+        background: "rgba(4,7,12,0.82)",
+        backdropFilter: "blur(6px)",
+        zIndex: 100,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 24,
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          width: "min(960px, 100%)",
+          maxHeight: "90vh",
+          background: "var(--bg-card)",
+          border: "1px solid var(--border-subtle)",
+          borderRadius: 6,
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "14px 16px",
+            borderBottom: "1px solid var(--border-subtle)",
+            background: "rgba(255,255,255,0.02)",
+          }}
+        >
+          <div>
+            <div style={{ fontSize: 12, color: "var(--text-primary)", letterSpacing: "0.06em", marginBottom: 4 }}>
+              {asset.title}
+            </div>
+            <div style={{ fontSize: 11, color: "var(--text-secondary)" }}>{asset.description}</div>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            style={{
+              border: "1px solid var(--border-subtle)",
+              background: "var(--bg-elevated)",
+              color: "var(--text-primary)",
+              cursor: "pointer",
+              fontSize: 11,
+              fontFamily: '"IBM Plex Mono", monospace',
+              padding: "8px 10px",
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+            }}
+          >
+            Close
+          </button>
+        </div>
+        <div
+          style={{
+            padding: 16,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            background: "#05080f",
+          }}
+        >
+          {isVideo ? (
+            <video
+              src={asset.assetUrl}
+              controls
+              autoPlay
+              playsInline
+              style={{ width: "100%", maxHeight: "72vh", borderRadius: 4, background: "#000" }}
+            />
+          ) : (
+            <img
+              src={asset.assetUrl}
+              alt={asset.title}
+              style={{ width: "100%", maxHeight: "72vh", objectFit: "contain", borderRadius: 4 }}
+            />
+          )}
+        </div>
+      </div>
+    </div>
   );
 }

@@ -55,7 +55,7 @@ export default function Controls({
             }}
           >
             <Settings2 size={12} />
-            IN-HOUSE
+            OUR OWN MODEL
           </button>
 
           {/* GEMINI AI */}

@@ -18,8 +18,9 @@ export const DEMO_MEDIA = [
     assetUrl: "/demo/test4.jpg",
     mimeType: "image/jpeg",
     description: "Sample image intended to produce a positive deepfake-style result in the product flow.",
-    preferredProvider: "gemini",
-    featureHighlight: "Deepfake-positive sample",
+    preferredProvider: "local",
+    featureHighlight: "Use only Our own model",
+    providerWarning: "Gemini fails on this sample. Use only Our own model.",
   },
   {
     id: "timeline-demo-1",
@@ -32,7 +33,7 @@ export const DEMO_MEDIA = [
     preferredProvider: "local",
     enableMultiface: false,
     featureHighlight: "Segment localization",
-    validated: false,
+    validated: true,
   },
   {
     id: "timeline-demo-2",
@@ -45,6 +46,6 @@ export const DEMO_MEDIA = [
     preferredProvider: "local",
     enableMultiface: false,
     featureHighlight: "Selling-point clip",
-    validated: false,
+    validated: true,
   },
 ];
