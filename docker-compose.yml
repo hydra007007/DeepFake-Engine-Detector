@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  deepfake-engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: deepfake-engine:latest
+    container_name: deepfake-engine
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    volumes:
+      # Mount models directory so you can swap models without rebuilding
+      - ./models:/app/models:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s

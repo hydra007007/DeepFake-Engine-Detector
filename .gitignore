@@ -1,0 +1,131 @@
+# ── Environment & Secrets ─────────────────────────────────────────────────────
+.env
+.env.*
+.env.local
+.env.*.local
+!.env.example
+*.pem
+*.key
+secrets/
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ── Virtual Environments ──────────────────────────────────────────────────────
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# ── Build / Distribution ──────────────────────────────────────────────────────
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ── Node / Frontend ───────────────────────────────────────────────────────────
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ── Model Weights (large binaries — use Git LFS or host separately) ───────────
+models/*.pth
+models/*.pt
+models/*.bin
+models/*.onnx
+models/*.safetensors
+# Keep the directory
+!models/.gitkeep
+
+# ── Training Artifacts ────────────────────────────────────────────────────────
+checkpoints/
+results/
+runs/
+wandb/
+*.log
+logs/
+
+# ── Data ──────────────────────────────────────────────────────────────────────
+data/raw/
+data/processed/
+data/frames/
+data/*.csv
+data/*.json
+# Keep directory structure
+!data/.gitkeep
+!data/raw/.gitkeep
+!data/raw/fake/.gitkeep
+!data/raw/real/.gitkeep
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ── IDE ───────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.settings/
+
+# ── Docker ────────────────────────────────────────────────────────────────────
+# docker-compose.override.yml
+
+# ── Temporary / Misc ──────────────────────────────────────────────────────────
+*.tmp
+*.temp
+*.bak
+*.orig
+*~
+.cache/
+tmp/
+temp/
+
+# ── Claude Code ───────────────────────────────────────────────────────────────
+.claude/settings.local.json

@@ -1,0 +1,54 @@
+# Git
+.git
+.gitignore
+
+# Python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info
+dist
+build
+*.egg
+.eggs
+
+# Virtual environments
+venv/
+env/
+.env
+.venv
+
+# Data directories (large, not needed in image)
+data/
+
+# Results
+results/
+checkpoints/
+
+# Frontend source (only need built dist)
+frontend/node_modules/
+frontend/.vite/
+
+# Secrets
+.env
+.env.*
+
+# Misc
+.DS_Store
+*.log
+*.tmp
+.dockerignore
+README.md
+*.md
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test files
+tests/
+*.test.*
