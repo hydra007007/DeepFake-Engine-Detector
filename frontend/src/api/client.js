@@ -1,4 +1,5 @@
-const BASE = "/api";
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || "https://deepfake-engine-detector.onrender.com").replace(/\/$/, "");
+const BASE = `${API_BASE}/api`;
 
 export async function detectDeepfake(file, modelId, useMultiface, provider = "local") {
   const form = new FormData();

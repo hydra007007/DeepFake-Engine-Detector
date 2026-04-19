@@ -65,6 +65,15 @@ export default function App() {
       .catch(() => {});
   }, []);
 
+  const localAvailable = models.some((model) => model.available);
+  const geminiAvailable = status?.gemini_available ?? false;
+
+  useEffect(() => {
+    if (!localAvailable && geminiAvailable && provider === "local") {
+      setProvider("gemini");
+    }
+  }, [geminiAvailable, localAvailable, provider]);
+
   const handleFile = (f) => {
     setFile(f);
     setResult(null);
@@ -87,6 +96,10 @@ export default function App() {
   };
 
   const isVideo = file && file.type.startsWith("video/");
+  const canAnalyze =
+    !!file &&
+    !isAnalyzing &&
+    ((provider === "local" && localAvailable) || (provider === "gemini" && geminiAvailable));
 
   return (
     <div
@@ -196,11 +209,28 @@ export default function App() {
             onMultifaceChange={setUseMultiface}
             provider={provider}
             onProviderChange={setProvider}
-            geminiAvailable={status?.gemini_available ?? false}
+            geminiAvailable={geminiAvailable}
+            localAvailable={localAvailable}
             onAnalyze={handleAnalyze}
-            canAnalyze={!!file && !isAnalyzing}
+            canAnalyze={canAnalyze}
             isAnalyzing={isAnalyzing}
           />
+
+          {!localAvailable && geminiAvailable && (
+            <div
+              style={{
+                marginTop: 10,
+                padding: "8px 12px",
+                background: "rgba(99,102,241,0.08)",
+                border: "1px solid rgba(99,102,241,0.28)",
+                borderRadius: 3,
+                fontSize: 11,
+                color: "var(--text-secondary)",
+              }}
+            >
+              LOCAL MODELS UNAVAILABLE ON BACKEND. Gemini analysis remains online.
+            </div>
+          )}
 
           {useMultiface && provider === "local" && (
             <div

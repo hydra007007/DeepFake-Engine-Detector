@@ -65,7 +65,8 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # ── Model Weights (large binaries — use Git LFS or host separately) ───────────
-models/*.pth
+
+
 models/*.pt
 models/*.bin
 models/*.onnx

@@ -10,12 +10,15 @@ export default function Controls({
   provider,
   onProviderChange,
   geminiAvailable,
+  localAvailable,
   onAnalyze,
   canAnalyze,
   isAnalyzing,
 }) {
   const useGemini = provider === "gemini";
   const useLocal = provider === "local";
+  const canUseGemini = geminiAvailable && !isAnalyzing;
+  const canUseLocal = localAvailable && !isAnalyzing;
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
       {/* Provider row */}
@@ -35,7 +38,8 @@ export default function Controls({
           {/* LOCAL MODEL */}
           <button
             onClick={() => onProviderChange("local")}
-            disabled={isAnalyzing}
+            disabled={!canUseLocal}
+            title={!localAvailable ? "Local models are not available on the backend" : ""}
             style={{
               flex: "1 1 auto",
               display: "flex", alignItems: "center", justifyContent: "center", gap: 7,
@@ -43,7 +47,8 @@ export default function Controls({
               background: useLocal ? "rgba(34,211,238,0.12)" : "var(--bg-elevated)",
               border: `1px solid ${useLocal ? "var(--accent)" : "var(--border-subtle)"}`,
               color: useLocal ? "var(--accent)" : "var(--text-secondary)",
-              cursor: isAnalyzing ? "not-allowed" : "pointer",
+              cursor: canUseLocal ? "pointer" : "not-allowed",
+              opacity: localAvailable ? 1 : 0.55,
               fontSize: 12, fontFamily: '"IBM Plex Mono", monospace', letterSpacing: "0.05em",
               transition: "all 0.2s ease",
               boxShadow: useLocal ? "0 0 12px rgba(34,211,238,0.15)" : "none",
@@ -56,7 +61,7 @@ export default function Controls({
           {/* GEMINI AI */}
           <button
             onClick={() => onProviderChange("gemini")}
-            disabled={isAnalyzing}
+            disabled={!canUseGemini}
             title={!geminiAvailable ? "GEMINI_API_KEY not configured" : ""}
             style={{
               flex: "1 1 auto",
@@ -65,7 +70,8 @@ export default function Controls({
               background: useGemini ? "rgba(99,102,241,0.18)" : "var(--bg-elevated)",
               border: `1px solid ${useGemini ? "rgba(99,102,241,0.7)" : "var(--border-subtle)"}`,
               color: useGemini ? "#a78bfa" : "var(--text-secondary)",
-              cursor: isAnalyzing ? "not-allowed" : "pointer",
+              cursor: canUseGemini ? "pointer" : "not-allowed",
+              opacity: geminiAvailable ? 1 : 0.55,
               fontSize: 12, fontFamily: '"IBM Plex Mono", monospace', letterSpacing: "0.05em",
               transition: "all 0.2s ease",
               boxShadow: useGemini ? "0 0 14px rgba(99,102,241,0.2)" : "none",
