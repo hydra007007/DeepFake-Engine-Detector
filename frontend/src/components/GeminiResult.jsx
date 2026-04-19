@@ -24,7 +24,7 @@ export default function GeminiResult({ result }) {
         }}
       >
         <Sparkles size={12} />
-        ANALYSIS BY GEMINI 2.0 FLASH VISION
+        ANALYSIS BY GEMINI VISION
         {faceCount != null && (
           <span style={{ marginLeft: 8, color: "var(--text-muted)" }}>
             <Users size={10} style={{ display: "inline", marginRight: 4 }} />

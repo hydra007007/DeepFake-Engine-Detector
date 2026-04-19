@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" role="img" aria-label="Demo subject portrait one">
+  <defs>
+    <linearGradient id="bgTop" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0b1f6a"/>
+      <stop offset="100%" stop-color="#2783ff"/>
+    </linearGradient>
+    <linearGradient id="hoodie" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#e6d7d0"/>
+      <stop offset="100%" stop-color="#cbb9b0"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+  </defs>
+  <rect width="900" height="1200" fill="#0d1119"/>
+  <rect x="0" y="0" width="900" height="360" fill="url(#bgTop)"/>
+  <rect x="0" y="360" width="900" height="840" fill="#3a3f47"/>
+  <circle cx="635" cy="158" r="190" fill="#3d8cff" opacity=".24" filter="url(#soft)"/>
+  <ellipse cx="448" cy="470" rx="172" ry="212" fill="#d8a77f"/>
+  <path d="M292 830c26-106 95-156 159-156s136 47 164 156l44 246H232z" fill="url(#hoodie)"/>
+  <path d="M386 678h122l30 105H356z" fill="#cb9982"/>
+  <path d="M301 336c54-67 113-89 170-90 84-1 146 34 196 96l-12 131c-19-14-42-24-71-27-33-3-55 6-73 17-18-11-40-20-74-17-26 2-48 10-66 21z" fill="#15181f"/>
+  <path d="M361 445c34-18 70-18 90-8m70 9c26-16 59-16 90 0" stroke="#2f180f" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <ellipse cx="394" cy="512" rx="24" ry="15" fill="#20110a"/>
+  <ellipse cx="531" cy="512" rx="24" ry="15" fill="#20110a"/>
+  <circle cx="386" cy="507" r="5" fill="#fff" opacity=".8"/>
+  <circle cx="524" cy="507" r="5" fill="#fff" opacity=".8"/>
+  <path d="M456 521c-14 35-17 71-4 83" stroke="#ba8b69" stroke-width="10" stroke-linecap="round" fill="none"/>
+  <path d="M399 633c44 22 96 22 134 0" stroke="#5d2d24" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <path d="M408 634c18 14 42 21 55 21 16 0 41-8 61-23" stroke="#b05c58" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <path d="M410 590c16 26 31 34 46 34 20 0 35-8 54-35" stroke="#1f120e" stroke-width="10" stroke-linecap="round" fill="none"/>
+  <path d="M458 799l13 0 0 178-13 0z" fill="#161b21"/>
+  <path d="M306 842c-52 4-86 28-104 72m383-76c49 8 78 31 98 68" stroke="#b9a59d" stroke-width="24" stroke-linecap="round" fill="none"/>
+  <text x="48" y="1090" fill="#d8e7ff" font-family="IBM Plex Mono, monospace" font-size="28" letter-spacing="6">DEMO SUBJECT 01</text>
+  <text x="48" y="1132" fill="#88d8ff" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="3">portrait sample for instant image analysis</text>
+</svg>

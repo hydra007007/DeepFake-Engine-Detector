@@ -55,7 +55,7 @@ export default function Controls({
             }}
           >
             <Settings2 size={12} />
-            LOCAL
+            IN-HOUSE
           </button>
 
           {/* GEMINI AI */}
@@ -145,7 +145,7 @@ export default function Controls({
         {/* AI provider label */}
         {useGemini && (
           <div style={{ flex: "1 1 200px", padding: "9px 14px", background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.3)", fontSize: 12, color: "#a78bfa", letterSpacing: "0.05em", display: "flex", alignItems: "center", gap: 8 }}>
-            <Sparkles size={12} />Gemini 2.5 Flash Vision
+            <Sparkles size={12} />Gemini forensic vision analysis
           </div>
         )}
         {/* Multi-face toggle — only for local mode */}

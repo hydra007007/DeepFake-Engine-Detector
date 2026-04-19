@@ -265,3 +265,11 @@ select:focus, input:focus {
   outline: none;
   border-color: var(--accent);
 }
+
+@media (max-width: 900px) {
+  .hero-grid-inner,
+  .workflow-grid,
+  .timeline-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

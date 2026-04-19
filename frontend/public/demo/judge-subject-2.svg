@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" role="img" aria-label="Demo subject portrait two">
+  <defs>
+    <linearGradient id="stage" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#20120d"/>
+      <stop offset="100%" stop-color="#5f3022"/>
+    </linearGradient>
+    <linearGradient id="light" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#2a59ff"/>
+      <stop offset="100%" stop-color="#081126"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1200" fill="#130c09"/>
+  <rect x="0" y="0" width="250" height="1200" fill="url(#light)"/>
+  <g opacity=".75">
+    <rect x="86" y="42" width="82" height="1090" rx="12" fill="#1d2b70"/>
+    <rect x="96" y="72" width="62" height="38" rx="8" fill="#2f6eff"/>
+    <rect x="96" y="148" width="62" height="38" rx="8" fill="#2f6eff"/>
+    <rect x="96" y="224" width="62" height="38" rx="8" fill="#2f6eff"/>
+    <rect x="96" y="300" width="62" height="38" rx="8" fill="#2f6eff"/>
+    <rect x="96" y="376" width="62" height="38" rx="8" fill="#2f6eff"/>
+    <rect x="96" y="452" width="62" height="38" rx="8" fill="#2f6eff"/>
+    <rect x="96" y="528" width="62" height="38" rx="8" fill="#2f6eff"/>
+  </g>
+  <rect x="250" y="0" width="950" height="1200" fill="url(#stage)"/>
+  <g opacity=".4">
+    <path d="M330 70h810v1060H330z" fill="#682d22"/>
+    <path d="M330 70l810 0M330 245l810 0M330 420l810 0M330 595l810 0M330 770l810 0M330 945l810 0" stroke="#d6b18f" stroke-width="8"/>
+    <path d="M470 70v1060M610 70v1060M750 70v1060M890 70v1060M1030 70v1060" stroke="#d6b18f" stroke-width="8"/>
+  </g>
+  <ellipse cx="690" cy="470" rx="136" ry="176" fill="#d0a07d"/>
+  <path d="M560 365c27-95 82-137 132-137 56 0 110 38 141 118l-11 82c-47-23-81-34-130-34-48 0-85 11-126 33z" fill="#231a16"/>
+  <ellipse cx="637" cy="470" rx="21" ry="14" fill="#1e130f"/>
+  <ellipse cx="742" cy="470" rx="21" ry="14" fill="#1e130f"/>
+  <circle cx="632" cy="466" r="4" fill="#fff" opacity=".75"/>
+  <circle cx="737" cy="466" r="4" fill="#fff" opacity=".75"/>
+  <path d="M687 480c-11 25-13 56-2 66" stroke="#b37e62" stroke-width="9" stroke-linecap="round" fill="none"/>
+  <path d="M625 575c31 18 72 18 101 0" stroke="#612a22" stroke-width="11" stroke-linecap="round" fill="none"/>
+  <path d="M606 660c38 18 97 18 171 2l52 192H548z" fill="#1d2025"/>
+  <path d="M515 729c56-41 84-61 114-57m107 10c31-4 57 14 110 48" stroke="#1a1a1f" stroke-width="36" stroke-linecap="round" fill="none"/>
+  <text x="368" y="1040" fill="#fff0dc" font-family="IBM Plex Mono, monospace" font-size="42" letter-spacing="10">DEMO SUBJECT 02</text>
+  <text x="370" y="1096" fill="#f8cbb8" font-family="IBM Plex Mono, monospace" font-size="22" letter-spacing="4">compressed stage-style sample for quick walkthroughs</text>
+</svg>

@@ -164,7 +164,7 @@ export default function DropZone({ file, onFile, disabled }) {
                 {isDragging ? "RELEASE TO ANALYZE" : "DRAG & DROP FILE"}
               </div>
               <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>
-                or click to browse
+                or click to browse, then use the sample assets below if you want a no-upload walkthrough
               </div>
             </div>
 
